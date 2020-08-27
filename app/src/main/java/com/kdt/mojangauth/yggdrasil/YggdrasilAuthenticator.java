@@ -8,7 +8,7 @@ import java.nio.charset.*;
 import java.util.*;
 
 public class YggdrasilAuthenticator {
-    private static final String API_URL = "https://authserver.mojang.com/";
+    private static final String API_URL = "https://authserver.mojang.com";
     private String clientName = "Minecraft";
     private int clientVersion = 1;
     private Gson gson = new Gson();
