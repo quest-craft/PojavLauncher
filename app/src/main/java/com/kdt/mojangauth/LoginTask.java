@@ -9,7 +9,7 @@ import net.kdt.pojavlaunch.*;
 public class LoginTask extends AsyncTask<String, Void, String[]>
 {
 	private YggdrasilAuthenticator authenticator = new YggdrasilAuthenticator();
-	//private String TAG = "MojangAuth-login";
+	private String TAG = "MojangAuth-login";
 	private LoginListener listener;
 	
 	public LoginTask setLoginListener(LoginListener listener)
