@@ -17,8 +17,9 @@ public class AuthenticateRequest {
         this.username = username;
         this.password = password;
         this.clientToken = clientToken;
-        this.agent.name = clientName;
-        this.agent.version = clientVersion;
+        this.agent = new AgentInfo();
+        agent.name = clientName;
+        agent.version = clientVersion;
     }
 }
 
