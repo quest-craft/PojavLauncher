@@ -25,7 +25,7 @@
 #define GLFW_ALPHA_BITS             0x00021004
 #define GLFW_DEPTH_BITS             0x00021005
 #define GLFW_STENCIL_BITS           0x00021006
-#define GLFW_SAMPLES                0x0002100D
+// #define GLFW_SAMPLES                0x0002100D
 
 struct PotatoBridge {
 	/* ANativeWindow */ void* androidWindow;
@@ -175,7 +175,7 @@ JNIEXPORT jboolean JNICALL Java_org_lwjgl_glfw_GLFW_nativeEglInit(JNIEnv* env, j
             // Minecraft required on initial 24
             EGL_DEPTH_SIZE, eglHints.depthBits, // 16
             EGL_STENCIL_SIZE, eglHints.stencilBits,
-            EGL_SAMPLES, eglHints.samples,
+            // EGL_SAMPLES, eglHints.samples,
             
             EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
             EGL_NONE
