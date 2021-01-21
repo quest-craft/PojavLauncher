@@ -49,13 +49,14 @@ struct EGLHints {
     int depthBits;
     int stencilBits;
  // accumRedBits, accumGreenBits, accumBlueBits,
-    int samples;
+    // int samples;
  // , sRGB;
 /*
     accumAlphaBits, auxBuffers, stereo,
     doubleBuffers, transparent, refreshRate
 */
-} eglHints;
+};
+struct EGLHints eglHints = {8, 8, 8, 8, 24, 0};
 
 EGLConfig config;
 
@@ -139,10 +140,10 @@ JNIEXPORT void JNICALL Java_org_lwjgl_glfw_GLFW_nativeEglSetHint(JNIEnv* env, jc
         case GLFW_TRANSPARENT_FRAMEBUFFER:
             eglHints.transparent = value;
             return;
-*/
         case GLFW_SAMPLES:
             eglHints.samples = value;
             return;
+*/
         default:
             printf("EGLBridge: unknown GLFW hint: %d=%d\n", hint, value);
             return;
