@@ -225,12 +225,20 @@ public class JREUtils
         envMap.put("LIBGL_NORMALIZE", "1");
 
         envMap.put("MESA_GLSL_CACHE_DIR", ctx.asActivity().getCacheDir().getAbsolutePath());
+        envMap.put("MESA_GL_VERSION_OVERRIDE", "4.6COMPAT");
+        envMap.put("MESA_GLSL_VERSION_OVERRIDE", "460");
+        envMap.put("force_glsl_extensions_warn", "true");
+        envMap.put("allow_higher_compat_version", "true");
+        envMap.put("allow_glsl_extension_directive_midshader", "true");
+
         envMap.put("LD_LIBRARY_PATH", LD_LIBRARY_PATH);
         envMap.put("PATH", Tools.DIR_HOME_JRE + "/bin:" + Os.getenv("PATH"));
 
         envMap.put("REGAL_GL_VENDOR", "Android");
         envMap.put("REGAL_GL_RENDERER", "Regal");
         envMap.put("REGAL_GL_VERSION", "4.5");
+
+        envMap.put("POJAV_RENDERER", LauncherPreferences.PREF_RENDERER);
 
         envMap.put("AWTSTUB_WIDTH", Integer.toString(CallbackBridge.windowWidth > 0 ? CallbackBridge.windowWidth : CallbackBridge.physicalWidth));
         envMap.put("AWTSTUB_HEIGHT", Integer.toString(CallbackBridge.windowHeight > 0 ? CallbackBridge.windowHeight : CallbackBridge.physicalHeight));
@@ -257,6 +265,7 @@ public class JREUtils
         if(!envMap.containsKey("LIBGL_ES")) {
             int glesMajor = getDetectedVersion();
             Log.i("glesDetect","GLES version detected: "+glesMajor);
+
             if (glesMajor < 3) {
                 //fallback to 2 since it's the minimum for the entire app
                 envMap.put("LIBGL_ES","2");

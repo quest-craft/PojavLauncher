@@ -10,6 +10,9 @@ add_library(pojavexec SHARED
 # gles for the debug string stuff
 target_link_libraries(pojavexec PRIVATE -ldl -llog -landroid -lEGL -lGLESv3)
 
+# Make stuff that uses library-style includes work
+target_include_directories(pojavexec SYSTEM PRIVATE ${CMAKE_SOURCE_DIR})
+
 add_library(istdio SHARED
         stdio_is.c
         )
