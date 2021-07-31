@@ -39,4 +39,4 @@ include(OpenCompositeStub/CMakeLists.txt)
 include(VrLauncher/CMakeLists.txt)
 
 # Required so it can send the EGL info to OC
-target_link_libraries(pojavexec PRIVATE openvr_api)
+# target_link_libraries(pojavexec PRIVATE openvr_api)

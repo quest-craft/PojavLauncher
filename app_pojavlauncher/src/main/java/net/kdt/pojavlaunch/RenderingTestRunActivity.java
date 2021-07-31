@@ -96,8 +96,10 @@ public class RenderingTestRunActivity extends LoggableActivity {
         List<String> launchArgs = new ArrayList<>(); // TODO
 
         ArrayList<String> javaArgList = new ArrayList<>();
+        //javaArgList.add("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5873");
+        // javaArgList.add("-agentlib:jdwp=transport=dt_socket,server=n,address=10.0.2.24:5873,suspend=y");
         javaArgList.add("-cp");
-        javaArgList.add(Tools.getLWJGL3ClassPath() + ":" + launchClassPath);
+        javaArgList.add(launchClassPath + ":" + Tools.getLWJGL3ClassPath());
 
         javaArgList.add(mainClass);
         javaArgList.addAll(launchArgs);

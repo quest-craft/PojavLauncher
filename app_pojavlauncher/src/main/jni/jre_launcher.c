@@ -115,6 +115,10 @@ static jint launchJVM(int margc, char** margv) {
    fflush(stdout);
    write(1, "hi:\n", 4);
 
+   for (int i=0; i<margc; i++) {
+       printf("Launch arg %d: %s\n", i, margv[i]);
+   }
+
    LOGD("Calling JLI_Launch");
 
    return pJLI_Launch(margc, margv,

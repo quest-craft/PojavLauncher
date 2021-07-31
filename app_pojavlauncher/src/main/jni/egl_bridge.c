@@ -629,7 +629,7 @@ void pojav_openGLOnLoad() {
 void pojav_openGLOnUnload() {
 
 }
-void* gbuffer;
+void* gbuffer = 0;
 
 void terminateEgl() {
     printf("EGLBridge: Terminating\n");
@@ -676,6 +676,7 @@ JNIEXPORT jboolean JNICALL Java_org_lwjgl_glfw_GLFW_nativeEglInit(JNIEnv* env, j
     ANativeWindow_setBuffersGeometry(potatoBridge.androidWindow,savedWidth,savedHeight,AHARDWAREBUFFER_FORMAT_R8G8B8_UNORM);
 
     const char *renderer = getenv("POJAV_RENDERER");
+    printf("Set renderer: %s\n", renderer);
     if (strncmp("opengles", renderer, 8) == 0) {
         config_renderer = RENDERER_GL4ES;
 
@@ -731,7 +732,7 @@ JNIEXPORT jboolean JNICALL Java_org_lwjgl_glfw_GLFW_nativeEglInit(JNIEnv* env, j
             ocInfo.context = potatoBridge.eglContext;
             ocInfo.config = config;
             ocInfo.display = potatoBridge.eglDisplay;
-            OCWrapper_InitEGL(&ocInfo);
+            // OCWrapper_InitEGL(&ocInfo);
 
             potatoBridge.eglSurface = eglCreatePbufferSurface(potatoBridge.eglDisplay, config, NULL);
             if (!potatoBridge.eglSurface) {
@@ -825,14 +826,16 @@ void flipFrame() {
                     closeGLFWWindow();
                 }
             }
-        }
+        } break;
 
         case RENDERER_VK_ZINK: {
-            ((struct osmesa_context)*OSMesaGetCurrentContext_p())
-            .current_buffer->map = buf.bits;
+            const uint8_t *bits = gbuffer; // buf.bits;
+            // ((struct osmesa_context)*OSMesaGetCurrentContext_p())
+            // .current_buffer->map = buf.bits;
             glFinish_p();
-            ANativeWindow_unlockAndPost(potatoBridge.androidWindow);
             ANativeWindow_lock(potatoBridge.androidWindow,&buf,NULL);
+            // memcpy(buf.bits, gbuffer, buf.width * buf.height * 3);
+            ANativeWindow_unlockAndPost(potatoBridge.androidWindow);
         } break;
     }
 }
@@ -905,8 +908,10 @@ JNIEXPORT jboolean JNICALL Java_org_lwjgl_glfw_GLFW_nativeEglMakeCurrent(JNIEnv*
 
         case RENDERER_VK_ZINK: {
             printf("OSMDroid: making current\n");
-            OSMesaMakeCurrent_p((OSMesaContext)window,gbuffer,GL_UNSIGNED_BYTE,savedWidth,savedHeight);
+            // OSMesaMakeCurrent_p((OSMesaContext)window,gbuffer,GL_UNSIGNED_BYTE,savedWidth,savedHeight);
+            OSMesaMakeCurrent_p((OSMesaContext)window,gbuffer,GL_UNSIGNED_BYTE,100,100);
             ANativeWindow_lock(potatoBridge.androidWindow,&buf,NULL);
+            // OSMesaMakeCurrent_p((OSMesaContext)window,buf.bits,GL_UNSIGNED_BYTE,savedWidth,savedHeight);
             OSMesaPixelStore_p(OSMESA_ROW_LENGTH,buf.stride);
             stride = buf.stride;
             //ANativeWindow_unlockAndPost(potatoBridge.androidWindow);

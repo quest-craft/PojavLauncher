@@ -239,6 +239,7 @@ public class JREUtils
         envMap.put("REGAL_GL_VERSION", "4.5");
 
         envMap.put("POJAV_RENDERER", LauncherPreferences.PREF_RENDERER);
+        Log.i("glesDetect", "Using renderer: " + LauncherPreferences.PREF_RENDERER);
 
         envMap.put("AWTSTUB_WIDTH", Integer.toString(CallbackBridge.windowWidth > 0 ? CallbackBridge.windowWidth : CallbackBridge.physicalWidth));
         envMap.put("AWTSTUB_HEIGHT", Integer.toString(CallbackBridge.windowHeight > 0 ? CallbackBridge.windowHeight : CallbackBridge.physicalHeight));
